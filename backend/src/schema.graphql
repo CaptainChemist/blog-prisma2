@@ -39,9 +39,10 @@ input PostWhereUniqueInput {
 }
 
 type Query {
-  feed: [Post!]!
+  feed(published: Boolean): [Post!]!
   filterPosts(searchString: String): [Post!]!
   post(where: PostWhereUniqueInput!): Post
+  users: [User!]!
 }
 
 type User {

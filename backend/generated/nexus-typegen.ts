@@ -83,6 +83,7 @@ export interface NexusGenFieldTypes {
     feed: NexusGenRootTypes['Post'][]; // [Post!]!
     filterPosts: NexusGenRootTypes['Post'][]; // [Post!]!
     post: NexusGenRootTypes['Post'] | null; // Post
+    users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
     email: string; // String!
@@ -110,6 +111,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    feed: { // args
+      published?: boolean | null; // Boolean
+    }
     filterPosts: { // args
       searchString?: string | null; // String
     }
