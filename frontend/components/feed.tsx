@@ -2,7 +2,7 @@ import React from 'react';
 import { Table, Button } from 'antd';
 import { FeedQueryComponent } from '../generated/apollo-components';
 import PublishDraft from './publish-draft';
-// import DeletePost from './delete-post';
+import DeletePost from './delete-post';
 
 type Props = {
   published: boolean;
@@ -42,7 +42,7 @@ class FeedList extends React.PureComponent<Props> {
                   return (
                     <Button.Group>
                       {published ? null : <PublishDraft id={id} />}
-                      {/* <DeletePost id={id} /> */}
+                      <DeletePost id={id} />
                     </Button.Group>
                   );
                 }
