@@ -1,0 +1,7 @@
+#import from '../fragments/post.gql'
+
+query feedQuery($published: Boolean!) {
+  feed(published: $published) {
+    ...PostFragment
+  }
+}
