@@ -51,5 +51,5 @@ services:
       - /app/node_modules
       - /app/.next
 
-volumes:
+volumes: #define our mysql volume used above
   mysql:
