@@ -1,11 +1,12 @@
 # Fullstack Blog Application with Prisma 2, Next.js and Docker
 
 Based on Blog Posts at:
+
 https://www.codemochi.com/blog/2019-07-08-prisma-2-nextjs-docker/
 
-https://www.codemochi.com/blog/2019-07-10-prisma-2-nextjs-docker/
+https://www.codemochi.com/blog/2019-07-10-prisma-2-nextjs-docker/ (coming soon!)
 
-https://www.codemochi.com/blog/2019-07-12-prisma-2-nextjs-docker/
+https://www.codemochi.com/blog/2019-07-12-prisma-2-nextjs-docker/ (coming soon!)
 
 This repo is for a fullstack javascript application that uses Next.js for server side rendering on the frontend and a GraphQL Yoga server with Prisma 2 on the backend. We use Prisma Studio for an admin portal and a MySQL database.
 
