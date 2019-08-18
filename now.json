@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "build": {
+    "env": {
+      "MYSQL_URL": "@mysql_url",
+      "BACKEND_URL": "@backend_url",
+      "FRONTEND_URL": "@frontend_url"
+    }
+  },
+  "env": {
+    "MYSQL_URL": "@mysql_url",
+    "BACKEND_URL": "@backend_url",
+    "FRONTEND_URL": "@frontend_url"
+  },
+  "builds": [
+    {
+      "src": "frontend/next.config.js",
+      "use": "@now/next"
+    },
+    {
+      "src": "backend/src/index.ts",
+      "use": "@now/node",
+      "config": { "maxLambdaSize": "20mb" }
+    }
+  ],
+  "routes": [
+    { "src": "/graphql", "dest": "/backend/src/index.ts" },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1",
+      "headers": {
+        "x-request-path": "$1"
+      }
+    }
+  ]
+}

@@ -25,9 +25,11 @@ export interface NexusGenInputs {
   }
   PostCreateWithoutAuthorInput: { // input type
     content?: string | null; // String
+    createdAt?: any | null; // DateTime
     id?: string | null; // ID
     published: boolean; // Boolean!
     title: string; // String!
+    updatedAt?: any | null; // DateTime
   }
   PostWhereUniqueInput: { // input type
     id?: string | null; // ID

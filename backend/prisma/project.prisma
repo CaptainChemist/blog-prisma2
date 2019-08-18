@@ -1,11 +1,12 @@
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:prisma@mysql:3306/prisma"
+  url      = env("MYSQL_URL")
 }
 
 generator photon {
-  provider = "photonjs"
+  provider  = "photonjs"
+  platforms = ["native", "linux-glibc-libssl1.0.2"]
 }
 
 generator nexus_prisma {
