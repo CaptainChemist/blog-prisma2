@@ -1,0 +1,13 @@
+logs
+*.log
+npm-debug.log*
+
+pids
+*.pid
+*.seed
+
+build/Release
+**/node_modules
+
+.DS_Store
+.next/

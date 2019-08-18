@@ -1,0 +1,55 @@
+version: '3.7'
+services:
+  mysql:
+    container_name: mysql
+    ports:
+      - '3306:3306'
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: prisma
+      MYSQL_ROOT_PASSWORD: prisma
+    volumes:
+      - mysql:/var/lib/mysql
+  prisma:
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    container_name: prisma
+    ports:
+      - '5555:5555'
+    build:
+      context: backend/prisma
+      dockerfile: Dockerfile
+    volumes:
+      - /app/prisma
+  backend:
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    container_name: backend
+    ports:
+      - '4000:4000'
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - /app/prisma
+  frontend:
+    container_name: frontend
+    ports:
+      - '3000:3000'
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes: #define our mysql volume used above
+  mysql:
