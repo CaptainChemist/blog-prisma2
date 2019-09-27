@@ -1,8 +1,7 @@
-import Photon from '@generated/photon'
-const photon = new Photon()
+import { Photon } from '@generated/photon';
+const photon = new Photon();
 
 async function main() {
-
   const user1 = await photon.users.create({
     data: {
       email: 'alice@prisma.io',
@@ -11,11 +10,11 @@ async function main() {
         create: {
           title: 'Join us for Prisma Day 2019 in Berlin',
           content: 'https://www.prisma.io/day/',
-          published: true,
-        },
-      },
-    },
-  })
+          published: true
+        }
+      }
+    }
+  });
   const user2 = await photon.users.create({
     data: {
       email: 'bob@prisma.io',
@@ -25,23 +24,23 @@ async function main() {
           {
             title: 'Subscribe to GraphQL Weekly for community news',
             content: 'https://graphqlweekly.com/',
-            published: true,
+            published: true
           },
           {
             title: 'Follow Prisma on Twitter',
             content: 'https://twitter.com/prisma',
-            published: false,
-          },
-        ],
-      },
-    },
-  })
+            published: false
+          }
+        ]
+      }
+    }
+  });
 
-  console.log({ user1, user2 })
+  console.log({ user1, user2 });
 }
 
 main()
   .catch(e => console.error(e))
   .finally(async () => {
-    await photon.disconnect()
-  })
+    await photon.disconnect();
+  });
