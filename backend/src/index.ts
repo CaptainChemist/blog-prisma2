@@ -1,6 +1,6 @@
 import { nexusPrismaPlugin } from '@generated/nexus-prisma';
-import Photon from '@generated/photon';
-import { idArg, makeSchema, objectType, stringArg, booleanArg } from '@prisma/nexus';
+import { Photon } from '@generated/photon';
+import { idArg, makeSchema, objectType, stringArg, booleanArg } from 'nexus';
 import { GraphQLServer } from 'graphql-yoga';
 import { join } from 'path';
 import { Context } from './types';
@@ -39,9 +39,7 @@ export const Post = objectType({
 const Query = objectType({
   name: 'Query',
   definition(t) {
-    t.crud.findOnePost({
-      alias: 'post'
-    });
+    t.crud.post();
 
     t.list.field('users', {
       type: 'User',
