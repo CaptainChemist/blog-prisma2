@@ -5,10 +5,11 @@
 
 import * as ctx from "../src/types"
 import * as photon from "@generated/photon"
-import { core } from "nexus"
+
+
 
 declare global {
-  interface NexusGenCustomOutputMethods<TypeName extends string> {
+  interface NexusGenCustomOutputProperties<TypeName extends string> {
     crud: NexusPrisma<TypeName, 'crud'>
     model: NexusPrisma<TypeName, 'model'>
   }
