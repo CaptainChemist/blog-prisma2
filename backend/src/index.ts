@@ -1,4 +1,4 @@
-import { nexusPrismaPlugin } from '@generated/nexus-prisma';
+import { nexusPrismaPlugin } from 'nexus-prisma';
 import { Photon } from '@generated/photon';
 import { idArg, makeSchema, objectType, stringArg, booleanArg } from 'nexus';
 import { GraphQLServer } from 'graphql-yoga';

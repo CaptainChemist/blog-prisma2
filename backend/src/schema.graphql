@@ -2,7 +2,6 @@
 ### Do not make changes to this file directly
 
 
-"""DateTime"""
 scalar DateTime
 
 type Mutation {
@@ -51,7 +50,7 @@ type User {
   email: String!
   id: ID!
   name: String
-  posts(after: String, before: String, first: Int, last: Int, skip: Int): [Post!]
+  posts: [Post!]
 }
 
 input UserCreateInput {
