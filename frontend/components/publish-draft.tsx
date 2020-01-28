@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button } from 'antd';
-import { PublishMutationComponent, FeedQueryDocument } from '../generated/apollo-components';
+import {
+  PublishMutationComponent,
+  FeedQueryDocument,
+} from '../generated/apollo-components';
 
 type Props = {
-  id: string;
+  id: number;
 };
 
 class PublishDraft extends React.Component<Props> {
@@ -18,8 +21,8 @@ class PublishDraft extends React.Component<Props> {
                 variables: { id },
                 refetchQueries: [
                   { query: FeedQueryDocument, variables: { published: true } },
-                  { query: FeedQueryDocument, variables: { published: false } }
-                ]
+                  { query: FeedQueryDocument, variables: { published: false } },
+                ],
               })
             }
           >

@@ -1,6 +1,14 @@
 # Fullstack Blog Application with Prisma 2, Next.js and Docker
 
-Based on Blog Posts at:
+**Updates:**
+
+01/29/2020: Prisma has been updated to preview version 20. The build flow has been changed slightly. Now the environment can be spun up by doing the following:
+
+1. Run `npm run build` in the root directory.
+2. Run `npm start` in the root directory.
+3. If you are running this for the first time after a build, you need to migrate the database. Run `npm run migrate`. Then run `npm stop` followed by `npm start` to reset the server.
+
+**Based on Blog Posts at:**
 
 https://www.codemochi.com/blog/2019-07-08-prisma-2-nextjs-docker/
 

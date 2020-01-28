@@ -22,31 +22,31 @@ class FeedList extends React.PureComponent<Props> {
               key: i,
               title,
               content,
-              id
+              id,
             }));
             const columns = [
               {
                 title: 'Title',
                 dataIndex: 'title',
-                key: 'title'
+                key: 'title',
               },
               {
                 title: 'Content',
                 dataIndex: 'content',
-                key: 'content'
+                key: 'content',
               },
               {
                 title: 'Action',
                 key: 'action',
-                render: ({ id }: { id: string }) => {
+                render: ({ id }: { id: number }) => {
                   return (
                     <Button.Group>
                       {published ? null : <PublishDraft id={id} />}
                       <DeletePost id={id} />
                     </Button.Group>
                   );
-                }
-              }
+                },
+              },
             ];
             return <Table columns={columns} dataSource={feedData} />;
           }
