@@ -1,6 +1,6 @@
 #import from '../fragments/post.gql'
 
-mutation publishMutation($id: ID!) {
+mutation publishMutation($id: Int!) {
   publish(id: $id) {
     ...PostFragment
   }

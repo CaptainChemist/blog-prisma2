@@ -1,15 +1,17 @@
 import { nexusPrismaPlugin } from 'nexus-prisma';
-import { Photon } from '@generated/photon';
-import { idArg, makeSchema, objectType, stringArg, booleanArg } from 'nexus';
+import { PrismaClient } from '@prisma/client';
+import {
+  intArg,
+  makeSchema,
+  objectType,
+  stringArg,
+  booleanArg,
+} from 'nexus';
 import { GraphQLServer } from 'graphql-yoga';
 import { join } from 'path';
 import { Context } from './types';
 
-const photon = new Photon();
-
-const nexusPrisma = nexusPrismaPlugin({
-  photon: (ctx: Context) => ctx.photon
-});
+const prisma = new PrismaClient();
 
 export const User = objectType({
   name: 'User',
@@ -18,9 +20,9 @@ export const User = objectType({
     t.model.name();
     t.model.email();
     t.model.posts({
-      pagination: false
+      pagination: false,
     });
-  }
+  },
 });
 
 export const Post = objectType({
@@ -33,7 +35,7 @@ export const Post = objectType({
     t.model.content();
     t.model.published();
     t.model.author();
-  }
+  },
 });
 
 const Query = objectType({
@@ -44,36 +46,39 @@ const Query = objectType({
     t.list.field('users', {
       type: 'User',
       resolve: (parent, args, ctx) => {
-        return ctx.photon.users.findMany({});
-      }
+        return ctx.prisma.users.findMany({});
+      },
     });
 
     t.list.field('feed', {
       type: 'Post',
       args: {
-        published: booleanArg()
+        published: booleanArg(),
       },
       resolve: (parent, { published }, ctx) => {
-        return ctx.photon.posts.findMany({
-          where: { published }
+        return ctx.prisma.posts.findMany({
+          where: { published },
         });
-      }
+      },
     });
 
     t.list.field('filterPosts', {
       type: 'Post',
       args: {
-        searchString: stringArg({ nullable: true })
+        searchString: stringArg({ nullable: true }),
       },
       resolve: (_, { searchString }, ctx) => {
-        return ctx.photon.posts.findMany({
+        return ctx.prisma.posts.findMany({
           where: {
-            OR: [{ title: { contains: searchString } }, { content: { contains: searchString } }]
-          }
+            OR: [
+              { title: { contains: searchString } },
+              { content: { contains: searchString } },
+            ],
+          },
         });
-      }
+      },
     });
-  }
+  },
 });
 
 const Mutation = objectType({
@@ -87,62 +92,63 @@ const Mutation = objectType({
       args: {
         title: stringArg(),
         content: stringArg({ nullable: true }),
-        authorEmail: stringArg()
+        authorEmail: stringArg(),
       },
       resolve: (_, { title, content, authorEmail }, ctx) => {
-        return ctx.photon.posts.create({
+        return ctx.prisma.posts.create({
           data: {
             title,
             content,
             published: false,
             author: {
-              connect: { email: authorEmail }
-            }
-          }
+              connect: { email: authorEmail },
+            },
+          },
         });
-      }
+      },
     });
 
     t.field('publish', {
       type: 'Post',
       nullable: true,
       args: {
-        id: idArg()
+        id: intArg(),
       },
       resolve: (_, { id }, ctx) => {
-        return ctx.photon.posts.update({
+        return ctx.prisma.posts.update({
           where: { id },
-          data: { published: true }
+          data: { published: true },
         });
-      }
+      },
     });
-  }
+  },
 });
 
 const schema = makeSchema({
-  types: [Query, Mutation, Post, User, nexusPrisma],
+  types: [Query, Mutation, Post, User],
+  plugins: [nexusPrismaPlugin()],
   outputs: {
     typegen: join(__dirname, '../generated/nexus-typegen.ts'),
-    schema: join(__dirname, '/schema.graphql')
+    schema: join(__dirname, '/schema.graphql'),
   },
   typegenAutoConfig: {
+    contextType: 'Context.Context',
     sources: [
       {
-        source: '@generated/photon',
-        alias: 'photon'
+        source: '@prisma/client',
+        alias: 'prisma',
       },
       {
         source: join(__dirname, 'types.ts'),
-        alias: 'ctx'
-      }
+        alias: 'Context',
+      },
     ],
-    contextType: 'ctx.Context'
-  }
+  },
 });
 
 const server = new GraphQLServer({
   schema,
-  context: { photon }
+  context: { prisma },
 });
 
 server.start(
@@ -152,8 +158,8 @@ server.start(
     subscriptions: false,
     cors: {
       credentials: true,
-      origin: process.env.FRONTEND_URL
-    }
+      origin: process.env.FRONTEND_URL,
+    },
   },
   () => console.log(`🚀 Server ready`)
 );

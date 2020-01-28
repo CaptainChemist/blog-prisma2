@@ -4,20 +4,19 @@ datasource db {
   url      = env("MYSQL_URL")
 }
 
-generator photon {
-  provider      = "photonjs"
-  binaryTargets = ["native", "linux-glibc-libssl1.0.2"]
+generator client {
+  provider = "prisma-client-js"
 }
 
 model User {
-  id    String  @default(cuid()) @id @unique
+  id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
   posts Post[]
 }
 
 model Post {
-  id        String   @default(cuid()) @id @unique
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   published Boolean

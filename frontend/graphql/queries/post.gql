@@ -1,6 +1,6 @@
 #import from '../fragments/post.gql'
 
-query postQuery($id: ID!) {
+query postQuery($id: Int!) {
   post(where: { id: $id }) {
     ...PostFragment
   }

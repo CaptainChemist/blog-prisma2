@@ -7,7 +7,7 @@ scalar DateTime
 type Mutation {
   createDraft(authorEmail: String, content: String, title: String): Post!
   deleteOnePost(where: PostWhereUniqueInput!): Post
-  publish(id: ID): Post
+  publish(id: Int): Post
   signupUser(data: UserCreateInput!): User!
 }
 
@@ -15,13 +15,13 @@ type Post {
   author: User
   content: String
   createdAt: DateTime!
-  id: ID!
+  id: Int!
   published: Boolean!
   title: String!
   updatedAt: DateTime!
 }
 
-input PostCreateManyWithoutPostsInput {
+input PostCreateManyWithoutAuthorInput {
   connect: [PostWhereUniqueInput!]
   create: [PostCreateWithoutAuthorInput!]
 }
@@ -29,14 +29,13 @@ input PostCreateManyWithoutPostsInput {
 input PostCreateWithoutAuthorInput {
   content: String
   createdAt: DateTime
-  id: ID
   published: Boolean!
   title: String!
   updatedAt: DateTime
 }
 
 input PostWhereUniqueInput {
-  id: ID
+  id: Int
 }
 
 type Query {
@@ -48,14 +47,13 @@ type Query {
 
 type User {
   email: String!
-  id: ID!
+  id: Int!
   name: String
-  posts: [Post!]
+  posts: [Post!]!
 }
 
 input UserCreateInput {
   email: String!
-  id: ID
   name: String
-  posts: PostCreateManyWithoutPostsInput
+  posts: PostCreateManyWithoutAuthorInput
 }

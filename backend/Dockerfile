@@ -1,5 +1,6 @@
-FROM node:10.16.0
-RUN npm install -g --unsafe-perm prisma2@2.0.0-preview014.1
+FROM node:12.14.1-slim
+RUN apt-get -qy update && apt-get -qy install openssl
+RUN npm install -g --unsafe-perm prisma2@2.0.0-preview020.3
 
 RUN mkdir /app
 WORKDIR /app
